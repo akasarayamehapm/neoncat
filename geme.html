@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Neon Cat</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+        body {
+            background-color: #080810;
+            color: #fff;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        #game-container {
+            position: relative;
+            width: 800px;
+            height: 450px;
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+            border: 2px solid #00f3ff;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #0d0d1a;
+        }
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            padding: 15px;
+        }
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            text-shadow: 0 0 8px #00f3ff;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+        .boss-hp-container {
+            position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 18px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ff0055;
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+        }
+        .boss-hp-bar {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff0055, #ff5500);
+            box-shadow: 0 0 10px #ff0055;
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(8, 8, 16, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        h1 {
+            font-size: 40px;
+            color: #00f3ff;
+            text-shadow: 0 0 15px #00f3ff;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 15px;
+            color: #a0a0d0;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .btn {
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #080810;
+            background: #00f3ff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #00f3ff;
+        }
+        .btn:hover {
+            background: #ff00ff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <canvas id="gameCanvas" width="800" height="450"></canvas>
+
+    <div id="ui-layer">
+        <div class="stats-bar">
+            <div>STAGE: <span id="stage-disp" style="color:#ff00ff;">1</span></div>
+            <div>SCORE: <span id="score-disp" style="color:#00f3ff;">00000</span></div>
+            <div>LIFE: <span id="life-disp" style="color:#ff0055;">♥♥♥</span></div>
+        </div>
+
+        <div class="boss-hp-container" id="boss-ui">
+            <div class="boss-hp-bar" id="boss-hp"></div>
+        </div>
+    </div>
+
+    <div id="overlay">
+        <h1 id="overlay-title">CYBER NEON CAT</h1>
+        <p id="overlay-msg">矢印キー / WASD で移動 & ジャンプ<br>全5ステージ構成（Stage 5はボス戦！）</p>
+        <button class="btn" onclick="startGame()">PLAY GAME</button>
+    </div>
+</div>
+
+<!-- 分割したJavaScriptファイルを順番に読み込み -->
+<script src="boss.js"></script>
+<script src="game.js"></script>
+
+</body>
+</html>
